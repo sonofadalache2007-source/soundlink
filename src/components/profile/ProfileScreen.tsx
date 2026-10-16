@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Order } from '../../types/order';
+import { PWAInstallButton } from '../pwa/PWAInstallButton';
 
 interface ProfileScreenProps {
   order: Order;
@@ -185,6 +186,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ order, onNavigateT
             ))}
           </div>
         </div>
+
+        {/* App Installation / PWA Card */}
+        <PWAInstallButton variant="card" />
 
         {/* Studio Preferences */}
         <div className="bg-[#191c22] rounded-xl p-4 shadow-lg border border-white/5 space-y-3">

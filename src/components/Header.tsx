@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import soundLinkLogo from '../assets/images/regenerated_image_1792165453701.png';
+import { PWAInstallButton } from './pwa/PWAInstallButton';
 
 interface HeaderProps {
   currentTab: string;
@@ -76,6 +77,9 @@ export const Header: React.FC<HeaderProps> = ({ currentTab, onNavigateTab, order
 
         {/* Right Action Icons */}
         <div className="flex items-center gap-2 relative">
+          {/* PWA In-App Install Trigger */}
+          <PWAInstallButton variant="header" />
+
           {/* Notifications Button */}
           <div className="relative">
             <button

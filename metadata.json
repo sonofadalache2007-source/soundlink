@@ -2,5 +2,7 @@
   "name": "SoundLink",
   "description": "Professional audio engineering and music production workspace with escrow protection, interactive A/B deliverable waveform player, and stem collaboration.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

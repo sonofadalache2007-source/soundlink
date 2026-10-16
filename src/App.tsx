@@ -13,6 +13,7 @@ import { ExploreScreen } from './components/explore/ExploreScreen';
 import { ServicesScreen } from './components/services/ServicesScreen';
 import { MessagesScreen } from './components/messages/MessagesScreen';
 import { ProfileScreen } from './components/profile/ProfileScreen';
+import { OfflineIndicator } from './components/pwa/OfflineIndicator';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('orders');
@@ -70,6 +71,9 @@ export default function App() {
         onNavigateTab={(tab) => setActiveTab(tab)}
         orderNumber={currentOrder.orderNumber}
       />
+
+      {/* Offline Connectivity Notification Banner */}
+      <OfflineIndicator />
 
       {/* Main Screen Viewport based on navigation flow */}
       <main className="flex-1 flex flex-col w-full">

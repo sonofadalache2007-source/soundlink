@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#53e076" />
+      <stop offset="100%" stop-color="#1db954" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="#10131a" />
+  <!-- Central SoundLink Audio Node Graphic -->
+  <g transform="translate(256, 256)" filter="url(#glow)">
+    <!-- Central Node -->
+    <circle r="44" fill="url(#brandGrad)" />
+    <!-- Orbiting Sound Nodes & Waveform Links -->
+    <circle cx="-100" cy="-60" r="24" fill="#53e076" opacity="0.9" />
+    <circle cx="100" cy="-60" r="24" fill="#53e076" opacity="0.9" />
+    <circle cx="-100" cy="60" r="24" fill="#4cd7f6" opacity="0.9" />
+    <circle cx="100" cy="60" r="24" fill="#4cd7f6" opacity="0.9" />
+    <!-- Connecting Audio Links -->
+    <line x1="-100" y1="-60" x2="0" y2="0" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" />
+    <line x1="100" y1="-60" x2="0" y2="0" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" />
+    <line x1="-100" y1="60" x2="0" y2="0" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" />
+    <line x1="100" y1="60" x2="0" y2="0" stroke="url(#brandGrad)" stroke-width="12" stroke-linecap="round" />
+    <!-- Waveform equalizer pulses -->
+    <line x1="-150" y1="0" x2="-100" y2="0" stroke="#53e076" stroke-width="8" stroke-linecap="round" />
+    <line x1="100" y1="0" x2="150" y2="0" stroke="#53e076" stroke-width="8" stroke-linecap="round" />
+    <line x1="0" y1="-140" x2="0" y2="-90" stroke="#53e076" stroke-width="8" stroke-linecap="round" />
+    <line x1="0" y1="90" x2="0" y2="140" stroke="#53e076" stroke-width="8" stroke-linecap="round" />
+  </g>
+</svg>
