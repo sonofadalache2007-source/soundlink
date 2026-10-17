@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Order } from '../../types/order';
+import { RevenueCatCheckoutModal } from '../modals/RevenueCatCheckoutModal';
+import { RevenueCatPlan } from '../../services/revenuecat';
 
 interface ServicesScreenProps {
   onBookService: (serviceName: string, price: number, turnaround: string) => void;
@@ -8,6 +10,7 @@ interface ServicesScreenProps {
 
 export const ServicesScreen: React.FC<ServicesScreenProps> = ({ onBookService, onNavigateToOrder }) => {
   const [selectedTier, setSelectedTier] = useState<string>('pro');
+  const [showCheckoutModal, setShowCheckoutModal] = useState<boolean>(false);
   const [addons, setAddons] = useState<{ [key: string]: boolean }>({
     rushDelivery: false,
     instrumentalStems: true,
@@ -217,15 +220,30 @@ export const ServicesScreen: React.FC<ServicesScreenProps> = ({ onBookService, o
               View Active
             </button>
             <button
-              onClick={() => onBookService(currentTier.name, totalPrice, currentTier.turnaround)}
+              onClick={() => setShowCheckoutModal(true)}
               className="flex-1 py-3 rounded-lg bg-gradient-to-r from-[#1db954] to-[#53e076] text-[#003914] text-xs font-bold shadow-lg shadow-[#1db954]/25 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-1.5"
             >
               <span className="material-symbols-outlined text-[18px]">verified_user</span>
-              Book & Deposit into Escrow (${totalPrice.toFixed(2)})
+              Book & Pay with RevenueCat (${totalPrice.toFixed(2)})
             </button>
           </div>
         </div>
+
+        {/* RevenueCat Integration Badge */}
+        <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#869585]">
+          <span className="material-symbols-outlined text-[14px] text-[#53e076]">lock</span>
+          <span>Payments, Subscriptions & Web Billing linked via RevenueCat</span>
+        </div>
       </div>
+
+      <RevenueCatCheckoutModal
+        isOpen={showCheckoutModal}
+        onClose={() => setShowCheckoutModal(false)}
+        onSuccess={(plan) => {
+          onBookService(currentTier.name, totalPrice, currentTier.turnaround);
+        }}
+        initialPlanId="monthly"
+      />
     </div>
   );
 };

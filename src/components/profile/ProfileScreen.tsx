@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Order } from '../../types/order';
 import { PWAInstallButton } from '../pwa/PWAInstallButton';
+import { RevenueCatCheckoutModal } from '../modals/RevenueCatCheckoutModal';
+import { RevenueCatPlan } from '../../services/revenuecat';
 
 interface ProfileScreenProps {
   order: Order;
@@ -10,6 +12,8 @@ interface ProfileScreenProps {
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ order, onNavigateToOrder }) => {
   const [activePersona, setActivePersona] = useState<'client' | 'producer'>('client');
   const [autoReleaseHours, setAutoReleaseHours] = useState('72');
+  const [showRevenueCatModal, setShowRevenueCatModal] = useState(false);
+  const [isProMember, setIsProMember] = useState(false);
 
   return (
     <div className="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-[#10131a]">
@@ -77,6 +81,29 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ order, onNavigateT
                 <p className="text-base font-bold text-white mt-0.5">$1,850.00 USD</p>
                 <p className="text-[10px] text-[#bccbb9]">12 Completed Masters</p>
               </div>
+            </div>
+
+            {/* RevenueCat Subscription Membership Banner */}
+            <div className="bg-gradient-to-r from-[#1db954]/15 to-[#571bc1]/20 p-3.5 rounded-xl border border-[#53e076]/30 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-white">
+                    {isProMember ? 'SoundLink Pro Pass Active' : 'SoundLink Pro Producer Pass'}
+                  </span>
+                  <span className="text-[9px] bg-[#53e076] text-[#003914] px-1.5 py-0.5 rounded font-bold uppercase">
+                    {isProMember ? 'Active' : 'RevenueCat'}
+                  </span>
+                </div>
+                <p className="text-[11px] text-[#bccbb9] mt-0.5 truncate">
+                  {isProMember ? '0% escrow fees & priority audio rendering unlocked' : 'Save $15 escrow fee per order + 500GB lossless stems storage'}
+                </p>
+              </div>
+              <button
+                onClick={() => setShowRevenueCatModal(true)}
+                className="px-3 py-1.5 rounded-lg bg-[#1db954] hover:bg-[#53e076] text-[#003914] text-xs font-bold shrink-0 transition-transform active:scale-95 shadow-md"
+              >
+                {isProMember ? 'Manage' : 'Upgrade'}
+              </button>
             </div>
           </div>
         ) : (
@@ -208,10 +235,31 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ order, onNavigateT
               <span>Audio Watermarking:</span>
               <span className="font-semibold text-[#53e076]">Enabled for pre-release</span>
             </div>
+            <div className="pt-2 border-t border-white/5 flex justify-between items-center text-[#bccbb9]">
+              <span>Legal & Privacy:</span>
+              <a
+                href="./privacy.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#53e076] hover:underline flex items-center gap-1 font-semibold"
+              >
+                <span>Privacy Policy</span>
+                <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+              </a>
+            </div>
           </div>
         </div>
 
       </div>
+
+      <RevenueCatCheckoutModal
+        isOpen={showRevenueCatModal}
+        onClose={() => setShowRevenueCatModal(false)}
+        onSuccess={(plan) => {
+          setIsProMember(true);
+        }}
+        initialPlanId="monthly"
+      />
     </div>
   );
 };
